@@ -3,6 +3,12 @@ function Test-SpaceXAPI {
         $PingCount
     )
     Test-Connection spacex.com -Count $PingCount
+    Write-Error -Message "An error has occurred." -ErrorAction Stop
 }
-
-Test-SpaceXAPI -PingCount 3
+try {
+Test-SpaceXAPI -ErrorAction Stop
+} catch {
+    Write-Host "Caught an exception: $_"
+} finally {
+    Write-Host "Execution completed."
+}
